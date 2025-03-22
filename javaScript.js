@@ -278,14 +278,14 @@ function overChecking(completedOvers) {
       switchInningsData();
     } else {
       // End of the match
-      if (getTotalRuns(runs) >= target) {
+      let firstInningsScore = parseInt(firstBattingTeamScores.innerHTML);
+      let secondInningsScore = parseInt(secondBattingTeamScore.innerHTML);
+
+      if (secondInningsScore > firstInningsScore) {
         h1.innerHTML = `${secondBattingTeamName.innerHTML} wins the match!`;
-      } else if(
-        getTotalRuns(runs) <= target &&
-        getTotalRuns(runs) >= target - 1
-      ) { ////
-        
-      }else{
+      } else if (secondInningsScore === firstInningsScore) {
+        h1.innerHTML = `The match is a draw!`;
+      } else {
         h1.innerHTML = `${firstBattingTeamName.innerHTML} wins the match!`;
       }
       annoncements.appendChild(h1);
