@@ -1,90 +1,83 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="style.css" />
-    <title>Score_Book</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cricket Scoreboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-black">
-    <div class="text-white bg-[url('./image/cricket_statuium.jpg')] min-h-screen w-full bg-cover bg-no-repeat bg-blend-darken bg-black bg-opacity-50 flex flex-col items-center px-4">
-        <!-- Try Again -->
-        <div class="flex justify-center items-center mt-10 sm:mt-16">
-            <button id="try_button" class="bg-sky-500 px-6 py-2 rounded-2xl hover:bg-sky-700 text-lg">
-                Play Again
-            </button>
-        </div>
+<body class="m-0 p-0">
+    <!-- Background Image Wrapper -->
+    <div class="relative h-screen w-screen bg-[url('./image/cricket_statuium.jpg')] bg-cover bg-center bg-no-repeat">
+        <!-- Overlay -->
+        <div class="absolute inset-0 bg-black bg-opacity-50"></div>
+        
+        <!-- Content Wrapper -->
+        <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-white w-full max-w-3xl p-6">
+            
+            <!-- Try Again Button -->
+            <div class="flex justify-center mb-4">
+                <button id="try_button" class="bg-sky-500 px-3 py-2 rounded-2xl hover:bg-sky-700">Play Again</button>
+            </div>
+            <div id="team_toss_selection">
 
-        <!-- Team's name and toss -->
-        <div id="team_toss_selection" class="w-full max-w-2xl mt-10 space-y-6 text-center">
-            <!-- Team name and over -->
-            <div class="font-bold flex flex-col sm:flex-row gap-3 justify-center items-center">
-                <label for="team1">Team 1</label>
-                <input id="team1" class="p-2 bg-gray-300 text-black rounded-lg focus:outline-none border border-cyan-100 hover:bg-gray-400 w-full sm:w-auto" type="text"/>
-
-                <label for="team2">Team 2</label>
-                <input id="team2" class="p-2 bg-gray-300 text-black rounded-lg focus:outline-none border border-cyan-100 hover:bg-gray-400 w-full sm:w-auto" type="text"/>
-
-                <label for="over">Over</label>
-                <input id="total_over" class="p-2 bg-gray-300 text-black rounded-lg focus:outline-none border border-cyan-100 hover:bg-gray-400 w-full sm:w-auto" type="number"/>
-            </div> 
-
-            <!-- Toss Selection -->
-            <div class="font-bold text-xl flex flex-col sm:flex-row gap-6 justify-center items-center">
-                <label class="mb-2 sm:mb-0">Toss:</label>
-
-                <select id="team_for_toss" class="bg-yellow-500 focus:outline-none border border-cyan-200 text-black rounded-lg px-4 py-2 hover:bg-yellow-600 w-full sm:w-auto">
+            <!-- Team's Name & Toss Selection -->
+            <div class="flex justify-between items-center gap-4 mb-4">
+                <input id="team1" class="p-2 w-full bg-gray-300 text-black rounded-lg border border-cyan-100 hover:bg-gray-400" type="text" placeholder="Team 1" />
+                <input id="team2" class="p-2 w-full bg-gray-300 text-black rounded-lg border border-cyan-100 hover:bg-gray-400" type="text" placeholder="Team 2" />
+                <input id="total_over" class="p-2 w-1/4 bg-gray-300 text-black rounded-lg border border-cyan-100 hover:bg-gray-400" type="number" placeholder="Over" />
+            </div>
+            
+            <!-- Toss Section -->
+            <div class="flex justify-center items-center gap-4 mb-6">
+                <select id="team_for_toss" class="p-2 bg-yellow-500 text-black font-bold rounded">
                     <option value="Team 1" selected>Team 1</option>
                     <option value="Team 2">Team 2</option>
                 </select>
-
-                <select id="toss" class="bg-yellow-500 focus:outline-none border border-cyan-200 text-black rounded-lg px-6 py-2 hover:bg-yellow-600 w-full sm:w-auto">
+                <select id="toss" class="p-2 bg-yellow-500 text-black font-bold rounded">
                     <option value="Head" selected>Head</option>
                     <option value="Tail">Tail</option>
                 </select>
-
-                <button id="toss_button" class="bg-sky-500 px-6 py-2 rounded-2xl hover:bg-sky-600 w-full sm:w-auto">
-                    Toss
-                </button>
+                <button id="toss_button" class="bg-sky-500 hover:bg-sky-600 text-white font-bold py-2 px-4 rounded-lg shadow-md">Toss</button>
             </div>
         </div>
-
-        <!-- Toss Announcement -->
-        <div id="annoncements" class="font-bold text-xl mt-6 text-center"></div>
-
-        <!-- Runs Section -->
-        <div class="font-bold text-lg mt-6 grid grid-cols-3 sm:grid-cols-5 md:grid-cols-10 gap-4">
-            <button id="1" class="bg-sky-500 p-2 rounded-2xl hover:bg-sky-600">1</button>
-            <button id="2" class="bg-sky-500 p-2 rounded-2xl hover:bg-sky-600">2</button>
-            <button id="3" class="bg-sky-500 p-2 rounded-2xl hover:bg-sky-600">3</button>
-            <button id="4" class="bg-sky-500 p-2 rounded-2xl hover:bg-sky-600">4</button>
-            <button id="5" class="bg-sky-500 p-2 rounded-2xl hover:bg-sky-600">5</button>
-            <button id="6" class="bg-sky-500 p-2 rounded-2xl hover:bg-sky-600">6</button>
-            <button id="dot" class="bg-sky-500 p-2 rounded-2xl hover:bg-sky-600">.</button>
-            <button id="wide" class="bg-green-500 p-2 rounded-2xl hover:bg-green-600">Wide</button>
-            <button id="no_ball" class="bg-green-500 p-2 rounded-2xl hover:bg-green-600">Noball</button>
-            <button id="out" class="bg-red-500 p-2 rounded-2xl hover:bg-red-600">Out</button>
-        </div>
-
-        <!-- Score Section -->
-        <div class="font-bold text-lg mt-10 grid grid-cols-1 md:grid-cols-2 gap-6 w-full max-w-4xl">
-            <!-- First Batting Team -->
-            <div class="bg-gray-800 p-4 rounded-lg text-center">
-                <h1>Team: <span id="first_batting_team_name"></span></h1>
-                <h1>Score: <span id="first_batting_team_scores">0</span></h1>
-                <h1>Wickets: <span id="first_batting_team_wickets">0</span></h1>
-                <h1>Over: <span id="first_batting_team_overs">0</span></h1>
+            
+            <!-- Announcement of Toss Winning Team -->
+            <div id="annoncements" class="font-bold text-lg md:text-2xl mb-6 flex justify-center"></div>
+            
+            <!-- Runs & Score Buttons -->
+            <div id="all_button" class="grid grid-cols-3 gap-4">
+                <button id="1" class="bg-sky-500 hover:bg-sky-600 text-white font-bold py-2 px-4 rounded-lg shadow-md">1</button>
+                <button id="2" class="bg-sky-500 hover:bg-sky-600 text-white font-bold py-2 px-4 rounded-lg shadow-md">2</button>
+                <button id="3" class="bg-sky-500 hover:bg-sky-600 text-white font-bold py-2 px-4 rounded-lg shadow-md">3</button>
+                <button id="4" class="bg-sky-500 hover:bg-sky-600 text-white font-bold py-2 px-4 rounded-lg shadow-md">4</button>
+                <button id="5" class="bg-sky-500 hover:bg-sky-600 text-white font-bold py-2 px-4 rounded-lg shadow-md">5</button>
+                <button id="6" class="bg-sky-500 hover:bg-sky-600 text-white font-bold py-2 px-4 rounded-lg shadow-md">6</button>
+                <button id="dot" class="bg-sky-500 hover:bg-sky-600 text-white font-bold py-2 px-4 rounded-lg shadow-md">.</button>
+                <button id="wide" class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-lg shadow-md">Wide</button>
+                <button id="no_ball" class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-lg shadow-md">Noball</button>
+                <button id="out" class="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded-lg shadow-md">Out</button>
             </div>
-
-            <!-- Second Batting Team -->
-            <div class="bg-gray-800 p-4 rounded-lg text-center">
-                <h1>Team: <span id="second_batting_team_name"></span></h1>
-                <h1>Score: <span id="second_batting_team_score">0</span></h1>
-                <h1>Wickets: <span id="second_batting_team_wicket">0</span></h1>
-                <h1>Over: <span id="second_batting_team_overs">0</span></h1>
+            
+            <!-- Score Display -->
+            <div class="mt-6 flex justify-between text-lg">
+                <div id="first_batting_team" class="text-center">
+                    <h1>Team: <span id="first_batting_team_name"></span></h1>
+                    <h1>Score: <span id="first_batting_team_scores">0</span></h1>
+                    <h1>Wickets: <span id="first_batting_team_wickets">0</span></h1>
+                    <h1>Over: <span id="first_batting_team_overs">0</span></h1>
+                </div>
+                <div id="second_batting_team" class="text-center ">
+                    <h1>Team: <span id="second_batting_team_name"></span></h1>
+                    <h1>Score: <span id="second_batting_team_score">0</span></h1>
+                    <h1>Wickets: <span id="second_batting_team_wicket">0</span></h1>
+                    <h1>Over: <span id="second_batting_team_overs">0</span></h1>
+                </div>
             </div>
         </div>
     </div>
+    
+    <!-- JavaScript File -->
     <script src="javaScript.js"></script>
 </body>
 </html>
